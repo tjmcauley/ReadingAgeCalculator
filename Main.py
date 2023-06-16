@@ -2,7 +2,7 @@ from MainMenu import *
 
 
 def main():
-    UserMenu()
+    createMainMenu()
 
 
 if __name__ == "__main__":
