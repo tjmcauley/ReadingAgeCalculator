@@ -1,6 +1,7 @@
 from AdminMenu import *
 from UserMenu import *
-
+from User import *
+from random import randint
 
 def createMainMenu():
     print("""
@@ -52,6 +53,8 @@ def createMainMenu():
 
 
 def createUser():
+    userID = randint(100, 999)
+    print(userID)
     while True:
         try:
             userTypeSelect = int(input("Pa fath o ddefnyddiwr hoffech chi creu; (-1)gadael (1)admin (2)arferol: "))
@@ -81,16 +84,9 @@ def createUser():
                 print("Mae rhaid i'r cyfrineiriau cyfateb i'w gilydd")
             else:
                 break
-
-    userTypeStore = str(userTypeSelect).ljust(1)
-    usernameStore = username.ljust(10)
-    passwordStore = pass2.ljust(10)
-    storeFile = open("users.txt", "a")
-    storeInfo = userTypeStore + usernameStore + passwordStore + "\n"
-    storeFile.write(storeInfo)
-    storeFile.close()
-    print("Wedi storio;\nMath Defnyddiwr: " + userTypeStore
-          + "\nEnw Defnyddiwr: " + usernameStore
+    newUser = User(userID, userTypeSelect, username, pass2)
+    print("Wedi storio;\nMath Defnyddiwr: " + newUser.getUserType()
+          + "\nEnw Defnyddiwr: " + newUser.getUsername()
           + "\nCyfrinair: **********")
     createMainMenu()
 
@@ -115,11 +111,11 @@ def login():
             createMainMenu()
         elif validateUserType == str(
                 1) and validateUsername == usernameInput and validatePassword == passwordInput:
-            AdminMenu()
+            createAdminMenu()
             break
         elif validateUserType == str(
                 2) and validateUsername == usernameInput and validatePassword == passwordInput:
-            UserMenu()
+            createUserMenu()
             break
 
 
