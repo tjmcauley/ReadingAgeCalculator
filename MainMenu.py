@@ -95,29 +95,18 @@ def login():
     usernameInput = str(input("Mewnbynnwch eich enw defnyddiwr: "))
     passwordInput = str(input("Mewnbynnwch eich cyfrinair: "))
 
-    try:
-        readUser = open("users.txt", "r")
-    except FileNotFoundError:
-        print("Nad oedd y ffeil users.txt yn gallu cael ei ddarganfod")
-
-    while True:
-        userLocation = readUser.readline()
-        validateUserType = userLocation[0:1].strip()
-        validateUsername = userLocation[1:11].strip()
-        validatePassword = userLocation[11:21].strip()
-        if userLocation == "":
-            readUser.close()
-            print("Nad oedd y defnyddiwr yna'n gallu cael ei ddarganfod")
-            createMainMenu()
-        elif validateUserType == str(
-                1) and validateUsername == usernameInput and validatePassword == passwordInput:
-            createAdminMenu()
-            break
-        elif validateUserType == str(
-                2) and validateUsername == usernameInput and validatePassword == passwordInput:
-            createUserMenu()
-            break
-
+    with open("users.txt", "r") as file:
+        data = file.readlines()
+        for line in data:
+            userTypeLocation = line[5:6].strip()
+            usernameLocation = line[6:16].strip()
+            passwordLocation = line[16:26].strip()
+            if userTypeLocation == "1" and usernameInput == usernameLocation and passwordInput == passwordLocation:
+                createAdminMenu()
+            elif userTypeLocation == "2" and usernameInput == usernameLocation and passwordInput == passwordLocation:
+                createUserMenu()
+        print("Nad oedd y defnyddiwr yna'n gallu cael ei ddarganfod")
+        createMainMenu()
 
 def aboutUs():
     print("Yr IDA yw rhaglen sydd wedi cael ei ddylunio er mwyn cyfrifo oedran darllen testun sy'n\n "
