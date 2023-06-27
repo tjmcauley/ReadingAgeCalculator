@@ -1,6 +1,6 @@
 import AdminMenu
 import UserMenu
-import User
+from User import *
 from random import randint
 
 def createMainMenu():
@@ -8,7 +8,7 @@ def createMainMenu():
              ~########################################################~
              ~#                                                      #~
              ~#                                                      #~
-             ~# ______________       __________            ___        ~
+             ~# ______________       __________            ___       #~
              ~# |              |     |          \         /   \      #~
              ~# |              |     |   _____   \       /  _  \     #~
              ~# `````|    |`````     |  |     \   \     /  / \  \    #~
@@ -54,7 +54,6 @@ def createMainMenu():
 
 def createUser():
     userID = randint(100, 999)
-    print(userID)
     while True:
         try:
             userTypeSelect = int(input("Pa fath o ddefnyddiwr hoffech chi creu; (-1)gadael (1)admin (2)arferol: "))
@@ -85,6 +84,15 @@ def createUser():
             else:
                 break
     newUser = User(userID, userTypeSelect, username, pass2)
+    newUser.updateStoredDetails(userID, userTypeSelect, username, pass2)
+    idStore = str(newUser.getID()).ljust(5)
+    userTypeStore = str(self.userType).ljust(1)
+    usernameStore = self.username.ljust(10)
+    passwordStore = self.password.ljust(10)
+    storeFile = open("users.txt", "a")
+    storeInfo = idStore + userTypeStore + usernameStore + passwordStore + "\n"
+    storeFile.write(storeInfo)
+    storeFile.close()
     print("Wedi storio;\nMath Defnyddiwr: " + newUser.getUserType()
           + "\nEnw Defnyddiwr: " + newUser.getUsername()
           + "\nCyfrinair: **********")

@@ -6,14 +6,7 @@ class User():
         self.username = str(username)
         self.password = str(password)
 
-        idStore = str(self.id).ljust(5)
-        userTypeStore = str(self.userType).ljust(1)
-        usernameStore = self.username.ljust(10)
-        passwordStore = self.password.ljust(10)
-        storeFile = open("users.txt", "a")
-        storeInfo = idStore + userTypeStore + usernameStore + passwordStore + "\n"
-        storeFile.write(storeInfo)
-        storeFile.close()
+
 
     def setID(self, id):
         self.id = id
@@ -41,7 +34,6 @@ class User():
 
     #Needs testing
     def updateStoredDetails(self, id, userType, username, password):
-        self.setID(id)
         self.setUserType(userType)
         self.setUsername(username)
         self.setPassword(password)
@@ -49,10 +41,11 @@ class User():
             data = file.readlines()
             for line in data:
                 if id == line[0]:
+                    idStore = (str(self.id).ljust(5))
                     userTypeStore = str(self.userType).ljust(1)
                     usernameStore = self.username.ljust(10)
                     passwordStore = self.password.ljust(10)
-                    storeInfo = userTypeStore + usernameStore + passwordStore + "\n"
+                    storeInfo = idStore + userTypeStore + usernameStore + passwordStore + "\n"
                     data[data.index(line)] = storeInfo
 
 
