@@ -1,5 +1,4 @@
-from MainMenu import *
-
+import MainMenu
 
 def createAdminMenu():
     print("""
@@ -32,7 +31,7 @@ def createAdminMenu():
         try:
             userIn = int(input())
             if userIn == 1:
-                createMainMenu()
+                MainMenu.createMainMenu()
                 break
             elif userIn == 2:
                 createUser()

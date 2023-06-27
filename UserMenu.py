@@ -1,4 +1,4 @@
-import MainMenu as MM
+import MainMenu
 import math
 
 
@@ -25,7 +25,7 @@ def createUserMenu():
                  ~#              (2) Mewnbynnu Testun a'i storio         #~
                  ~#         (3) Chwilio am destun trwy allweddeiriau     #~
                  ~#             (4) Chwilio am destun trwy'r teitl       #~
-                 ~#         (5) Chwilio am destun trwy sgor darllen      #~
+                 ~#         (5) Chwilio am destun trwy oedran darllen      #~
                  ~########################################################~
 
                  Beth hoffech chi gwneud?:
@@ -35,10 +35,10 @@ def createUserMenu():
         try:
             userIn = int(input())
             if userIn == 1:
-                MM.MainMenu()
+                MainMenu.createMainMenu()
                 break
             elif userIn == 2:
-                inputText()
+                storeText()
                 break
             elif userIn == 3:
                 keywordSearch()
@@ -54,8 +54,7 @@ def createUserMenu():
         except ValueError:
             print("Yn anffodus nad yw'r opsiwn yna ar gael")
 
-
-def inputText():
+def storeText():
     textIn = str(input("Mewnbynnwch y darn testun er mwyn storio a cyfrifo'r oedran darllen (max 2000 nod):"))
 
     spaceCount = textIn.count(" ")
@@ -77,46 +76,46 @@ def inputText():
             IDAValue = math.ceil(4.71 * (characterCount / wordCount) + 0.5 * (wordCount / sentenceCount) - 21.43)
 
             if IDAValue == 1:
-                Age = "5-6"
-                Year = "1"
+                age = "5-6"
+                year = "1"
             elif IDAValue == 2:
-                Age = "6-7"
-                Year = "2"
+                age = "6-7"
+                year = "2"
             elif IDAValue == 3:
-                Age = "7-8"
-                Year = "3"
+                age = "7-8"
+                year = "3"
             elif IDAValue == 4:
-                Age = "8-9"
-                Year = "4"
+                age = "8-9"
+                year = "4"
             elif IDAValue == 5:
-                Age = "9-10"
-                Year = "5"
+                age = "9-10"
+                year = "5"
             elif IDAValue == 6:
-                Age = "10-11"
-                Year = "6"
+                age = "10-11"
+                year = "6"
             elif IDAValue == 7:
-                Age = "11-12"
-                Year = "7"
+                age = "11-12"
+                year = "7"
             elif IDAValue == 8:
-                Age = "12-13"
-                Year = "8"
+                age = "12-13"
+                year = "8"
             elif IDAValue == 9:
-                Age = "13-14"
-                Year = "9"
+                age = "13-14"
+                year = "9"
             elif IDAValue == 10:
-                Age = "14-15"
-                Year = "10"
+                age = "14-15"
+                year = "10"
             elif IDAValue == 11:
-                Age = "15-16"
-                Year = "11"
+                age = "15-16"
+                year = "11"
             elif IDAValue == 12:
-                Age = "16-17"
-                Year = "12"
+                age = "16-17"
+                year = "12"
             else:
-                Age = "17+"
-                Year = "Arall"
+                age = "17+"
+                year = "Arall"
             print(
-                "Yr oedran sy'n cael ei argymell ar gyfer y testun yma yw: " + Age + " sef mewn blwyddyn: " + Year)
+                "Yr oedran sy'n cael ei argymell ar gyfer y testun yma yw: " + age + " sef mewn blwyddyn: " + year)
     except ZeroDivisionError:
         print("Mae'r testun yn rhy byr, mewnbynnwch testun hirrach")
         createUserMenu()
@@ -166,7 +165,7 @@ def inputText():
                 else:
                     break
 
-            readingAgeStore = str(IDAValue).ljust(3)
+            readingAgeStore = age.ljust(5)
             titleStore = titleIn.ljust(35)
             keyword1Store = keyword1In.ljust(15)
             keyword2Store = keyword2In.ljust(15)
@@ -175,7 +174,7 @@ def inputText():
             keyword5Store = keyword5In.ljust(15)
             textStore = textIn.ljust(2000)
 
-            storeFile = open("storedText.txt", "a")
+            storeFile = open("Texts.txt", "a")
             storeInfo = readingAgeStore + titleStore + keyword1Store + keyword2Store + keyword3Store \
                         + keyword4Store + keyword5Store + textStore + "\n"
 
@@ -196,21 +195,21 @@ def keywordSearch():
     keywordIn = str(input("Mewnbynnwch allweddair: "))
 
     try:
-        readTextFile = open("storedText.txt", "r")
+        readTextFile = open("Texts.txt", "r")
     except FileNotFoundError:
-        print("Nad oedd y ffeil storedText.txt yn gallu cael ei ddarganfod")
+        print("Nad oedd y ffeil Texts.txt yn gallu cael ei ddarganfod")
 
     while True:
         location = readTextFile.readline()
 
-        readingAge = location[0:3].strip()
-        title = location[3:38].strip()
-        keyword1 = location[38:53].strip()
-        keyword2 = location[53:68].strip()
-        keyword3 = location[68:83].strip()
-        keyword4 = location[83:98].strip()
-        keyword5 = location[98:113].strip()
-        text = location[113:2113]
+        readingAge = location[0:5].strip()
+        title = location[5:40].strip()
+        keyword1 = location[40:55].strip()
+        keyword2 = location[55:70].strip()
+        keyword3 = location[70:85].strip()
+        keyword4 = location[85:100].strip()
+        keyword5 = location[100:115].strip()
+        text = location[115:2115]
 
         if (location == ""):
             readTextFile.close()
@@ -228,21 +227,21 @@ def titleSearch():
     titleIn = str(input("Mewnbynnwch teitl y testun: "))
 
     try:
-        readTextFile = open("storedText.txt", "r")
+        readTextFile = open("Texts.txt", "r")
     except FileNotFoundError:
-        print("Nad oedd y ffeil storedText.txt yn gallu cael ei ddarganfod")
+        print("Nad oedd y ffeil Texts.txt yn gallu cael ei ddarganfod")
 
     while True:
         location = readTextFile.readline()
 
-        readingAge = location[0:3].strip()
-        title = location[3:38].strip()
-        keyword1 = location[38:53].strip()
-        keyword2 = location[53:68].strip()
-        keyword3 = location[68:83].strip()
-        keyword4 = location[83:98].strip()
-        keyword5 = location[98:113].strip()
-        text = location[113:2113]
+        readingAge = location[0:5].strip()
+        title = location[5:40].strip()
+        keyword1 = location[40:55].strip()
+        keyword2 = location[55:70].strip()
+        keyword3 = location[70:85].strip()
+        keyword4 = location[85:100].strip()
+        keyword5 = location[100:115].strip()
+        text = location[115:2115]
 
         print(title)
 
@@ -258,24 +257,24 @@ def titleSearch():
 
 
 def ageSearch():
-    ageIn = str(input("Mewnbynnwch sgor darllen y testun: "))
+    ageIn = str(input("Mewnbynnwch oedran darllen y testun: "))
 
     try:
-        readTextFile = open("storedText.txt", "r")
+        readTextFile = open("Texts.txt", "r")
     except FileNotFoundError:
-        print("Nad oedd y ffeil storedText.txt yn gallu cael ei ddarganfod")
+        print("Nad oedd y ffeil Texts.txt yn gallu cael ei ddarganfod")
 
     while True:
         location = readTextFile.readline()
 
-        readingAge = location[0:3].strip()
-        title = location[3:38].strip()
-        keyword1 = location[38:53].strip()
-        keyword2 = location[53:68].strip()
-        keyword3 = location[68:83].strip()
-        keyword4 = location[83:98].strip()
-        keyword5 = location[98:113].strip()
-        text = location[113:2113]
+        readingAge = location[0:5].strip()
+        title = location[5:40].strip()
+        keyword1 = location[40:55].strip()
+        keyword2 = location[55:70].strip()
+        keyword3 = location[70:85].strip()
+        keyword4 = location[85:100].strip()
+        keyword5 = location[100:115].strip()
+        text = location[115:2115]
 
         if (location == ""):
             readTextFile.close()

@@ -1,6 +1,6 @@
-from AdminMenu import *
-from UserMenu import *
-from User import *
+import AdminMenu
+import UserMenu
+import User
 from random import randint
 
 def createMainMenu():
@@ -102,9 +102,9 @@ def login():
             usernameLocation = line[6:16].strip()
             passwordLocation = line[16:26].strip()
             if userTypeLocation == "1" and usernameInput == usernameLocation and passwordInput == passwordLocation:
-                createAdminMenu()
+                AdminMenu.createAdminMenu()
             elif userTypeLocation == "2" and usernameInput == usernameLocation and passwordInput == passwordLocation:
-                createUserMenu()
+                UserMenu.createUserMenu()
         print("Nad oedd y defnyddiwr yna'n gallu cael ei ddarganfod")
         createMainMenu()
 
